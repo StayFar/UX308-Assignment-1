@@ -39,13 +39,10 @@ const suffix = (Math.random()*100).toFixed().toString();
 
 document.querySelector("body").insertAdjacentHTML("beforeend", `
     <style>
-    #fab${suffix} {
-    position: fixed;
-    bottom: 1em;
-    right: 1em;
-    font-size: 0.8em;
-    padding: 0.3em 0.6em;
-    z-index: 1000; /* Ensures it stays above other elements */
+    #fab${suffix}, #modal${suffix}{
+        position: absolute;
+        bottom: 1em;
+        right: 1em;
     }
     #fab${suffix} {
         font-size: 0.8em;
