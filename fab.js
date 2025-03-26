@@ -6,7 +6,7 @@ class Blur {
         this.div.id = "blurred_background";
         this.div.innerHTML = `<style>
         #blurred_background{
-            position:absolute;
+            position: fixed;
             top:0;
             left:0;
             height:100vh;
@@ -52,7 +52,7 @@ document.querySelector("body").insertAdjacentHTML("beforeend", `
         padding: 0.3em 0.6em;
     }
     #clear${suffix}{
-        position: absolute;
+        position: fixed;
         top: -1em;
         right: 1em;
     }
