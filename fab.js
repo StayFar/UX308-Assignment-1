@@ -52,7 +52,7 @@ document.querySelector("body").insertAdjacentHTML("beforeend", `
         padding: 0.3em 0.6em;
     }
     #clear${suffix}{
-        position: fixed;
+        position: absolute;
         top: -1em;
         right: 1em;
     }
