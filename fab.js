@@ -44,17 +44,13 @@ document.querySelector("body").insertAdjacentHTML("beforeend", `
         bottom: 1em;
         right: 1em;
     }
-        #fab${suffix} {
-        font-size: 0.8em;
-        padding: 0.3em 0.6em;
-    }
     #clear${suffix}{
         position: absolute;
         top: -1em;
         right: 1em;
     }
     </style>
-    <button id="fab${suffix}">Order Here</button>
+    <button id="fab${suffix}">Tell me</button>
     `);
 
 document.querySelector(`#fab${suffix}`).addEventListener("click", evt=>{
