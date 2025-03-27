@@ -47,9 +47,12 @@ document.querySelector("body").insertAdjacentHTML("beforeend", `
         z-index: 1000;
     }
     #clear${suffix} {
-        position: absolute;
+        position: fixed;
         top: -1em;
         right: 1em;
+        font-size: 0.8em;
+        padding: 0.3em 0.6em;
+        z-index: 1000;
     }
     </style>
     <button id="fab${suffix}">Order Here</button>
