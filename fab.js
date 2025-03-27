@@ -1,6 +1,6 @@
 class Blur {
     div;
-    constructor(message) {
+    constructor(message, suffix) {
         const oBody = window.top?.document.querySelector("body");
         this.div = window.top?.document.createElement("div");
         this.div.id = "blurred_background";
@@ -68,6 +68,6 @@ document.querySelector("body").insertAdjacentHTML("beforeend", `
 `);
 
 document.querySelector(`#fab${suffix}`).addEventListener("click", evt => {
-    const blur = new Blur();
+    const blur = new Blur("Chat Opened", suffix);
     document.querySelector(`#clear${suffix}`).addEventListener("click", () => blur.close());
 });
