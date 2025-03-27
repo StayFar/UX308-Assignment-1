@@ -1,27 +1,25 @@
 class Blur {
     div;
     constructor(message, targetButton) {
-        const oBody = window.top?.document.querySelector("body");
-        this.div = window.top?.document.createElement("div");
+        const oBody = document.body;
+        this.div = document.createElement("div");
         this.div.id = "blurred_background";
 
         // Get button position
         const buttonRect = targetButton.getBoundingClientRect();
-        const modalWidth = 300; // Approximate width of chat box
+        const modalWidth = 300; // Approximate chat box width
         const margin = 10; // Space between button and chat box
 
-        // Calculate modal position near the button
-        let leftPosition = buttonRect.right + margin; // Align to the right of the button
-        let topPosition = buttonRect.top;
+        // Calculate modal position
+        let leftPosition = buttonRect.left; // Align with button
+        let topPosition = buttonRect.top - 200; // Position above the button
 
-        // Prevent going off-screen on the right
+        // Adjust if it goes off-screen
         if (leftPosition + modalWidth > window.innerWidth) {
-            leftPosition = buttonRect.left - modalWidth - margin; // Move to the left if needed
+            leftPosition = window.innerWidth - modalWidth - margin; // Keep inside screen
         }
-
-        // Prevent going off-screen on the top
-        if (topPosition + 200 > window.innerHeight) { // 200px is an estimated modal height
-            topPosition = window.innerHeight - 200 - margin;
+        if (topPosition < 0) {
+            topPosition = buttonRect.bottom + margin; // Move below the button if needed
         }
 
         this.div.innerHTML = `
@@ -65,7 +63,7 @@ class Blur {
             ${message}
         </div>`;
 
-        oBody?.insertAdjacentElement("afterbegin", this.div);
+        oBody.insertAdjacentElement("afterbegin", this.div);
     }
     close(){
         this.div.remove();
@@ -74,7 +72,7 @@ class Blur {
 
 const suffix = (Math.random() * 100).toFixed().toString();
 
-document.querySelector("body").insertAdjacentHTML("beforeend", `
+document.body.insertAdjacentHTML("beforeend", `
     <style>
     #fab${suffix} {
         position: fixed;
