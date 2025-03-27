@@ -34,70 +34,28 @@ class Blur {
     }
 }
 
-const suffix = (Math.random() * 100).toFixed().toString();
+const suffix = (Math.random()*100).toFixed().toString();
 
-// Inject styles to position the chat correctly
 document.querySelector("body").insertAdjacentHTML("beforeend", `
     <style>
-    /* Floating button - stays at bottom-right */
     #fab${suffix} {
         position: fixed;
         bottom: 1em;
         right: 1em;
-        font-size: 1em;
-        padding: 0.5em 1em;
+        font-size: 0.8em;
+        padding: 0.3em 0.6em;
         z-index: 1000;
-        background-color: #ff4500; /* Customize */
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
     }
-
-    /* Chat modal - positioned close to the button */
-    #modal${suffix} {
-        position: fixed;
-        bottom: 4em; /* Just above the button */
-        right: 1em;
-        width: 350px;
-        background: white;
-        padding: 1em;
-        border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        display: none; /* Initially hidden */
-        z-index: 1001;
-    }
-
-    /* Close button inside chat */
     #clear${suffix} {
         position: absolute;
-        top: 5px;
-        right: 10px;
-        background: none;
-        border: none;
-        font-size: 1em;
-        cursor: pointer;
+        top: -1em;
+        right: 1em;
     }
     </style>
-
     <button id="fab${suffix}">Order Here</button>
-    <div id="modal${suffix}">
-        <button id="clear${suffix}">×</button>
-        <div><x-chat /></div>
-    </div>
-`);
+    `);
 
-// Get references to elements
-const orderButton = document.querySelector(`#fab${suffix}`);
-const chatModal = document.querySelector(`#modal${suffix}`);
-const closeButton = document.querySelector(`#clear${suffix}`);
-
-// Toggle chat visibility
-orderButton.addEventListener("click", () => {
-    chatModal.style.display = chatModal.style.display === "none" ? "block" : "none";
-});
-
-// Close chat
-closeButton.addEventListener("click", () => {
-    chatModal.style.display = "none";
+document.querySelector(`#fab${suffix}`).addEventListener("click", evt=>{
+    const blur = new Blur(`<div id="modal${suffix}"><div><x-chat /></div><button id="clear${suffix}">clear</button></div>`);
+    document.querySelector(`#clear${suffix}`).addEventListener("click", () => blur.close());
 });
