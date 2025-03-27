@@ -11,15 +11,15 @@ class Blur {
         const margin = 10; // Space between button and chat box
 
         // Calculate modal position
-        let leftPosition = buttonRect.right + margin; // Position to the right of button
-        let topPosition = buttonRect.top; // Align vertically with button
+        let leftPosition = buttonRect.left; // Align with button
+        let topPosition = buttonRect.top - 200; // Position above the button
 
         // Adjust if it goes off-screen
         if (leftPosition + modalWidth > window.innerWidth) {
-            leftPosition = buttonRect.left - modalWidth - margin; // Move to left if too wide
+            leftPosition = window.innerWidth - modalWidth - margin; // Keep inside screen
         }
-        if (topPosition + 200 > window.innerHeight) {
-            topPosition = buttonRect.top - 200; // Move up if too low
+        if (topPosition < 0) {
+            topPosition = buttonRect.bottom + margin; // Move below the button if needed
         }
 
         this.div.innerHTML = `
@@ -32,6 +32,9 @@ class Blur {
             width: 100vw;
             backdrop-filter: blur(8px);
             z-index: 1001;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         #modal_container {
             position: absolute;
