@@ -34,21 +34,20 @@ class Blur {
     }
 }
 
-
 const suffix = (Math.random()*100).toFixed().toString();
 
 document.querySelector("body").insertAdjacentHTML("beforeend", `
     <style>
-    #fab${suffix}, #modal${suffix}{
+    #fab${suffix}, #modal${suffix} {
         position: absolute;
         bottom: 1em;
         right: 1em;
     }
     #fab${suffix} {
-        font-size: 0.8em;
-        padding: 0.3em 0.6em;
+        font-size: 0.9em;
+        padding: 0.4em 0.8em;
     }
-    #clear${suffix}{
+    #clear${suffix} {
         position: absolute;
         top: -1em;
         right: 1em;
@@ -60,5 +59,4 @@ document.querySelector("body").insertAdjacentHTML("beforeend", `
 document.querySelector(`#fab${suffix}`).addEventListener("click", evt=>{
     const blur = new Blur(`<div id="modal${suffix}"><div><x-chat /></div><button id="clear${suffix}">clear</button></div>`);
     document.querySelector(`#clear${suffix}`).addEventListener("click", () => blur.close());
-}); 
-
+});
