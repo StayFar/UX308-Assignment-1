@@ -34,31 +34,33 @@ class Blur {
     }
 }
 
-const suffix = (Math.random()*100).toFixed().toString();
+const suffix = (Math.random() * 100).toFixed().toString();
 
 document.querySelector("body").insertAdjacentHTML("beforeend", `
     <style>
-    /* Make "Order Here" button move with scrolling */
+    /* Keep "Order Here" button in bottom-right corner */
     #fab${suffix} {
-        position: fixed; /* Stays in place when scrolling */
+        position: fixed;
         bottom: 1em;
         right: 1em;
         font-size: 0.9em;
         padding: 0.4em 0.8em;
-        z-index: 1000; /* Ensures it stays above other elements */
+        z-index: 1000;
     }
-    
-    /* Keep chat modal position unchanged */
+
+    /* Position chat modal near the button */
     #modal${suffix} {
-        position: absolute; /* Stays within the blurred background */
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        position: fixed;
+        bottom: 4em; /* Slightly above the button */
+        right: 1em;
+        width: 320px; /* Adjust as needed */
         background: white;
         padding: 1em;
         border-radius: 8px;
         box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
     }
+
+    /* Style the clear button */
     #clear${suffix} {
         position: absolute;
         top: -1em;
@@ -66,9 +68,14 @@ document.querySelector("body").insertAdjacentHTML("beforeend", `
     }
     </style>
     <button id="fab${suffix}">Order Here</button>
-    `);
+`);
 
-document.querySelector(`#fab${suffix}`).addEventListener("click", evt=>{
-    const blur = new Blur(`<div id="modal${suffix}"><div><x-chat /></div><button id="clear${suffix}">clear</button></div>`);
+document.querySelector(`#fab${suffix}`).addEventListener("click", evt => {
+    const blur = new Blur(`
+        <div id="modal${suffix}">
+            <div><x-chat /></div>
+            <button id="clear${suffix}">clear</button>
+        </div>
+    `);
     document.querySelector(`#clear${suffix}`).addEventListener("click", () => blur.close());
 });
