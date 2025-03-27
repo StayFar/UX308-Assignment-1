@@ -95,3 +95,4 @@ document.querySelector(`#fab${suffix}`).addEventListener("click", evt => {
     const blur = new Blur(`<div><x-chat /></div>`, evt.target);
     document.querySelector(`#clear${suffix}`).addEventListener("click", () => blur.close());
 });
+    
