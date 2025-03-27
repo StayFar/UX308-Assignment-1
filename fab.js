@@ -6,7 +6,7 @@ class Blur {
         this.div.id = "blurred_background";
         this.div.innerHTML = `<style>
         #blurred_background{
-            position:absolute;
+            position:fixed;
             top:0;
             left:0;
             height:100vh;
