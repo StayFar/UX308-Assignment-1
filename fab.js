@@ -7,22 +7,31 @@ class Blur {
 
         // Get button position
         const buttonRect = targetButton.getBoundingClientRect();
+        const modalWidth = 300; // Approximate width of the chat box
+        const margin = 10; // Space between button and chat box
+
+        // Calculate modal position
+        let leftPosition = buttonRect.right - modalWidth; // Align to the right
+        let topPosition = buttonRect.top - margin;
+
+        // Prevent going out of bounds
+        if (leftPosition < 0) leftPosition = margin; // Keep inside viewport
 
         this.div.innerHTML = `<style>
-        #blurred_background{
+        #blurred_background {
             position: fixed;
-            top:0;
-            left:0;
-            height:100vh;
-            width:100vw;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
             backdrop-filter: blur(8px);
-            z-index:1001;
+            z-index: 1001;
         }
         #modal_container {
             position: absolute;
-            top: ${buttonRect.top}px;
-            left: ${buttonRect.left}px;
-            transform: translateY(-100%);
+            top: ${topPosition}px;
+            left: ${leftPosition}px;
+            width: ${modalWidth}px;
             background: white;
             padding: 1em;
             border-radius: 10px;
@@ -43,7 +52,7 @@ class Blur {
     }
 }
 
-const suffix = (Math.random()*100).toFixed().toString();
+const suffix = (Math.random() * 100).toFixed().toString();
 
 document.querySelector("body").insertAdjacentHTML("beforeend", `
     <style>
