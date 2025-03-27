@@ -1,16 +1,12 @@
 class Blur {
     div;
-    constructor(message, targetButton) {
+    constructor(message) {
         const oBody = window.top?.document.querySelector("body");
         this.div = window.top?.document.createElement("div");
         this.div.id = "blurred_background";
-
-        // Get button position
-        const buttonRect = targetButton.getBoundingClientRect();
-
         this.div.innerHTML = `<style>
         #blurred_background{
-            position: fixed;
+            position:absolute;
             top:0;
             left:0;
             height:100vh;
@@ -18,24 +14,19 @@ class Blur {
             backdrop-filter: blur(8px);
             z-index:1001;
         }
-        #modal_container {
-            position: absolute;
-            top: ${buttonRect.top}px;
-            left: ${buttonRect.left}px;
-            transform: translateY(-100%);
-            background: white;
-            padding: 1em;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        #blurred_background p{
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
         }
-        #clear${suffix} {
-            position: absolute;
-            top: -1em;
-            right: 1em;
+        #blurred_background div{
+            padding: 0 1em;
         }
         </style>
-        <div id="modal_container">${message}</div>`;
-
+        <div>${message}</div>`;
         oBody?.insertAdjacentElement("afterbegin", this.div);
     }
     close(){
@@ -43,29 +34,26 @@ class Blur {
     }
 }
 
+
 const suffix = (Math.random()*100).toFixed().toString();
 
 document.querySelector("body").insertAdjacentHTML("beforeend", `
     <style>
-    #button_container {
-        position: relative;
-        display: inline-block;
-    }
-    #fab${suffix} {
-        position: fixed;
+    #fab${suffix}, #modal${suffix}{
+        position: absolute;
         bottom: 1em;
         right: 1em;
-        font-size: 0.8em;
-        padding: 0.3em 0.6em;
-        z-index: 1000;
+    }
+    #clear${suffix}{
+        position: absolute;
+        top: -1em;
+        right: 1em;
     }
     </style>
-    <div id="button_container">
-        <button id="fab${suffix}">Order Here</button>
-    </div>
-`);
+    <button id="fab${suffix}">Order Here</button>
+    `);
 
-document.querySelector(`#fab${suffix}`).addEventListener("click", evt => {
-    const blur = new Blur(`<div><x-chat /></div><button id="clear${suffix}">clear</button>`, evt.target);
+document.querySelector(`#fab${suffix}`).addEventListener("click", evt=>{
+    const blur = new Blur(`<div id="modal${suffix}"><div><x-chat /></div><button id="clear${suffix}">clear</button></div>`);
     document.querySelector(`#clear${suffix}`).addEventListener("click", () => blur.close());
 });
