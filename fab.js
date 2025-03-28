@@ -37,7 +37,7 @@ class Blur {
  document.querySelector("body").insertAdjacentHTML("beforeend", `
     <style>
     #fab${suffix}, #modal${suffix}{
-        position: absolute;
+        position: fixed;
         bottom: 1em;
         right: 1em;
         font-size: 0.8em;
